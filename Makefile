@@ -3,11 +3,11 @@ SRCDIR := src
 BUILDDIR := build
 TARGET := bin/torrentsh
 
-SRCEXT := cpp
+SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS := -g # -Wall
-#LIB := -L lib
+LIB := -lreadline
 INC := -I include
 
 $(TARGET): $(OBJECTS)

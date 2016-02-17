@@ -1,7 +1,8 @@
 #include <iostream>
+#include "repl.h"
 
-int main(int argc, char const* argv[])
-{
-    std::cout << "Hello world!" << std::endl;
+int main(int argc, char const* argv[]) {
+    ReadEvalPrint repl = ReadEvalPrint() ;
+    repl.loop();
     return 0;
 }
