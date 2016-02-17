@@ -14,3 +14,11 @@ A torrent client with a shell-like interface
 * mv, cd, ls, etc
 * Fully configurable
 * RPC interface (Websockets and/or xml-rpc)
+
+
+## Requirements
+
+* `pkg-config`
+* [readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html)
+* [libtorrent](http://www.libtorrent.org/)
+    * [boost](http://www.boost.org/)
