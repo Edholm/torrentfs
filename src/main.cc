@@ -1,7 +1,9 @@
-#include <iostream>
+#include "torrent.h"
 
 int main(int argc, char const* argv[])
 {
-    std::cout << "Hello world!" << std::endl;
+    Torrent t("archlinux.torrent");
+    t.print_info();
+
     return 0;
 }
