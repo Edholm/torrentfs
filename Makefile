@@ -3,11 +3,11 @@ SRCDIR := src
 BUILDDIR := build
 TARGET := bin/torrentsh
 
-SRCEXT := cpp
+SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS := -g # -Wall
-#LIB := -L lib
+LIB := $(shell pkg-config --cflags --libs libtorrent-rasterbar)
 INC := -I include
 
 $(TARGET): $(OBJECTS)
