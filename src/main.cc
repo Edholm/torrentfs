@@ -2,7 +2,7 @@
 #include "repl.h"
 
 int main(int argc, char const* argv[]) {
-    ReadEvalPrint repl = ReadEvalPrint() ;
-    repl.loop();
+    ReadEvalPrint repl;
+    repl.Loop();
     return 0;
 }

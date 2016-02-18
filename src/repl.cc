@@ -5,8 +5,11 @@
 #include <readline/history.h>
 
 #include "repl.h"
+#include "cmds.h"
 
 using namespace std;
+
+ReadEvalPrint::ReadEvalPrint() {}
 
 void ReadEvalPrint::Loop() {
     while (true) {
@@ -33,5 +36,11 @@ char* ReadEvalPrint::Read() {
 }
 
 void ReadEvalPrint::Eval(char* cmd) {
-    cout << "You wanted: " << cmd << endl;
+    for(auto cc : cmds) {
+        if(cc->ShouldTrigger(cmd)) {
+             cc->Run(vector<string>());
+             return;
+        }
+    }
+    cout << "torrentsh: command not found: " << cmd << endl;
 }

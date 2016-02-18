@@ -5,6 +5,7 @@ class ReadEvalPrint {
     void Eval(char *);
 
 public:
+    ReadEvalPrint();
     void Loop();
 };
 
