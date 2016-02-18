@@ -6,7 +6,7 @@ TARGET := bin/torrentsh
 SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g # -Wall
+CFLAGS :=-g -Wall -Wextra -std=c++11
 LIB := -lreadline
 INC := -I include
 
