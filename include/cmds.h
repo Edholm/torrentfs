@@ -3,10 +3,6 @@
 #include "base_cmd.h"
 #include "cmd_man.h"
 
-using namespace std;
-
-vector<BaseCmd*> cmds =  {
-    new CmdMan()
-};
+extern const std::vector<BaseCmd*> cmds;
 
 #endif
