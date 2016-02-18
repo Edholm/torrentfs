@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <boost/algorithm/string.hpp>
 
 #include "repl.h"
 #include "cmds.h"
@@ -36,9 +37,11 @@ char* ReadEvalPrint::Read() {
 }
 
 void ReadEvalPrint::Eval(char* cmd) {
+    vector<string> argv;
+    boost::split(argv, cmd, boost::is_space());
     for(auto cc : cmds) {
-        if(cc->ShouldTrigger(cmd)) {
-             cc->Run(vector<string>());
+        if(cc->ShouldTrigger(argv[0])) {
+             cc->Run(argv);
              return;
         }
     }

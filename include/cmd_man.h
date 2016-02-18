@@ -6,7 +6,7 @@
 
 class CmdMan : public BaseCmd{
 public:
-    bool ShouldTrigger(const char*);
+    bool ShouldTrigger(const std::string);
     void Run(std::vector<std::string>);
 };
 
