@@ -39,6 +39,10 @@ char* ReadEvalPrint::Read() {
 void ReadEvalPrint::Eval(char* cmd) {
     vector<string> argv;
     boost::split(argv, cmd, boost::is_space());
+    if(argv[0].empty()) {
+         return;
+    }
+
     for(auto cc : cmds) {
         if(cc->ShouldTrigger(argv[0])) {
              cc->Run(argv);
