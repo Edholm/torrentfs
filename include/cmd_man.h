@@ -6,6 +6,7 @@
 
 class CmdMan : public BaseCmd{
 public:
+    CmdMan();
     bool ShouldTrigger(const std::string);
     void Run(std::vector<std::string>);
 };
