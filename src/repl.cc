@@ -8,14 +8,14 @@
 
 using namespace std;
 
-void ReadEvalPrint::loop() {
+void ReadEvalPrint::Loop() {
     while (true) {
-        char* cmd = read();
+        char* cmd = Read();
         if(cmd == NULL) {
             cout << endl;
             exit(0);
         }
-        eval(cmd);
+        Eval(cmd);
         free(cmd);
     }
 }
@@ -23,7 +23,7 @@ void ReadEvalPrint::loop() {
 /*
  * Don't forget to free the return value when you're done with it
  */
-char* ReadEvalPrint::read() {
+char* ReadEvalPrint::Read() {
     const char* PS1 = "$ ";
     char* cmd = readline(PS1);
     if(cmd && *cmd) {
@@ -32,6 +32,6 @@ char* ReadEvalPrint::read() {
     return cmd;
 }
 
-void ReadEvalPrint::eval(char* cmd) {
+void ReadEvalPrint::Eval(char* cmd) {
     cout << "You wanted: " << cmd << endl;
 }

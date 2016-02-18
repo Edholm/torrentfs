@@ -1,11 +1,11 @@
 #ifndef TORRENTSH_REPL_H_
 
 class ReadEvalPrint {
-    char* read();
-    void eval(char *);
+    char* Read();
+    void Eval(char *);
 
 public:
-    void loop();
+    void Loop();
 };
 
 #endif // TORRENTSH_REPL_H_
