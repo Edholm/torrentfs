@@ -5,10 +5,8 @@
 #include <readline/history.h>
 #include <boost/algorithm/string.hpp>
 
-#include "repl.h"
 #include "cmds.h"
-
-using namespace std;
+#include "repl.h"
 
 ReadEvalPrint::ReadEvalPrint() {}
 
@@ -16,7 +14,7 @@ void ReadEvalPrint::Loop() {
     while (true) {
         char* cmd = Read();
         if(cmd == NULL) {
-            cout << endl;
+            std::cout << std::endl;
             exit(0);
         }
         Eval(cmd);
@@ -37,17 +35,15 @@ char* ReadEvalPrint::Read() {
 }
 
 void ReadEvalPrint::Eval(char* cmd) {
-    vector<string> argv;
+    std::vector<std::string> argv;
     boost::split(argv, cmd, boost::is_space());
     if(argv[0].empty()) {
          return;
     }
 
-    for(auto cc : cmds) {
-        if(cc->ShouldTrigger(argv[0])) {
-             cc->Run(argv);
-             return;
-        }
+    try {
+         cmd_map.at(argv[0])->Run(argv);
+    } catch(std::out_of_range& e) {
+        std::cout << "torrentsh: command not found: " << cmd << std::endl;
     }
-    cout << "torrentsh: command not found: " << cmd << endl;
 }

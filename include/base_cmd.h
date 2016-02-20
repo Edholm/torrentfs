@@ -8,7 +8,6 @@ class BaseCmd {
 protected:
     std::string man, usage;
 public:
-    virtual bool ShouldTrigger(const std::string cmd) = 0;
     void Usage();
     void Man();
     virtual void Run(std::vector<std::string>) = 0;
