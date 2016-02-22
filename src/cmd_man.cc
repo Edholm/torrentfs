@@ -1,15 +1,15 @@
 #include <string>
 #include <iostream>
 
+#include "base_cmd.h"
 #include "cmd_man.h"
 #include "cmds.h"
 
-CmdMan::CmdMan() {
-    usage = "Usage: man [OPTION...] PAGE";
-    man = "man is the program that you use to read documentation on other commands";
-}
+CmdMan::CmdMan() :
+    BaseCmd("man is the program that you use to read documentation on other commands",
+            "Usage: man [OPTION...] PAGE") {}
 
-void CmdMan::Run(std::vector<std::string> argv) {
+void CmdMan::Run(std::vector<std::string> &argv) {
     if(argv.size() == 1) {
         std::cout << "What manual page do you want?" << std::endl;
     } else {
@@ -19,4 +19,8 @@ void CmdMan::Run(std::vector<std::string> argv) {
             std::cout << "No manual entry for \"" << argv[1] << "\"" << std::endl;
         }
     }
+}
+
+void CmdMan::ConstructArguments() {
+
 }

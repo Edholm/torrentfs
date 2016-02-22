@@ -35,7 +35,7 @@ char* cmd_generator(const char *txt, const int state) {
 /* Provide custom completion for readline */
 static char** auto_completion(const char* txt, int start, int end __attribute__ ((unused))) {
     // This prevents appending space to the end of the matching word
-    rl_completion_append_character = '\0';
+    //rl_completion_append_character = '\0';
     char **matches = (char**)NULL;
     if(start == 0) {
         matches = rl_completion_matches(txt, &cmd_generator);
