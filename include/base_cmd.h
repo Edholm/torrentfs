@@ -1,10 +1,11 @@
 #ifndef TORRENTSH_BASE_CMD_H_
 #define TORRENTSH_BASE_CMD_H_
 
+#include <boost/core/noncopyable.hpp>
 #include <string>
 #include <vector>
 
-class BaseCmd {
+class BaseCmd : private boost::noncopyable {
 protected:
     std::string man, usage;
 public:
