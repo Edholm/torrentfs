@@ -2,19 +2,24 @@
 #define TORRENTSH_BASE_CMD_H_
 
 #include <boost/core/noncopyable.hpp>
+#include <boost/program_options.hpp>
 #include <string>
 #include <vector>
 
+namespace po = boost::program_options;
+
 class BaseCmd : private boost::noncopyable {
 protected:
-    std::string man, usage;
+    const std::string man, usage;
+    po::options_description opt_desc;
+    po::options_description hid_opt_desc;
+    po::positional_options_description pos_opt_desc;
+    po::variables_map var_map;
     BaseCmd(const std::string &man, const std::string &usage);
 
 public:
-    void Usage();
     void Man();
-    virtual void Run(std::vector<std::string>&) = 0;
-    virtual void ConstructArguments() = 0;
+    virtual int Run(const std::vector<std::string>&);
 };
 
 #endif

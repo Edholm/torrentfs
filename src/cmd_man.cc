@@ -7,20 +7,25 @@
 
 CmdMan::CmdMan() :
     BaseCmd("man is the program that you use to read documentation on other commands",
-            "Usage: man [OPTION...] PAGE") {}
+            "Usage: man [OPTION...] PAGE") {
+        hid_opt_desc.add_options()
+            ("page", po::value<std::vector<std::string>>(), "Manual page");
+        pos_opt_desc.add("page", -1);
+    }
 
-void CmdMan::Run(std::vector<std::string> &argv) {
-    if(argv.size() == 1) {
+int CmdMan::Run(const std::vector<std::string> &argv) {
+    if(BaseCmd::Run(argv)) { return 1; }
+
+    if(!var_map.count("page")) {
         std::cout << "What manual page do you want?" << std::endl;
     } else {
         try {
-            cmd_map.at(argv[1])->Man();
+            for(auto page : var_map["page"].as<std::vector<std::string>>()) {
+                cmd_map.at(page)->Man();
+            }
         } catch(std::out_of_range& e) {
             std::cout << "No manual entry for \"" << argv[1] << "\"" << std::endl;
         }
     }
-}
-
-void CmdMan::ConstructArguments() {
-
+    return 0;
 }

@@ -7,8 +7,7 @@
 class CmdMan : public BaseCmd{
 public:
     CmdMan();
-    virtual void Run(std::vector<std::string> &);
-    virtual void ConstructArguments();
+    virtual int Run(const std::vector<std::string> &);
 };
 
 #endif
