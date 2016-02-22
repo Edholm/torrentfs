@@ -9,10 +9,11 @@
 #include "repl.h"
 
 /*
+ * Used for building a list of strings starting with _txt_.
  * State is zero on first call, non-zero on for subsequent calls.
  * Returns a NULL pointer to the caller when there are no more matches.
  */
-char* cmd_generator(const char *txt, int state) {
+char* cmd_generator(const char *txt, const int state) {
     static size_t length = 0;
     static auto it       = cmd_map.cbegin();
     std::string name;
@@ -32,7 +33,7 @@ char* cmd_generator(const char *txt, int state) {
 }
 
 /* Provide custom completion for readline */
-static char** auto_completion(const char* txt, int start, int end) {
+static char** auto_completion(const char* txt, int start, int end __attribute__ ((unused))) {
     // This prevents appending space to the end of the matching word
     rl_completion_append_character = '\0';
     char **matches = (char**)NULL;
