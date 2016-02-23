@@ -16,15 +16,16 @@ CmdMan::CmdMan() :
 int CmdMan::Run(const std::vector<std::string> &argv) {
     if(BaseCmd::Run(argv)) { return 1; }
 
-    if(!var_map.count("page")) {
+    auto pages = var_map["page"].as<std::vector<std::string>>();
+    if(pages.empty()) {  // FIXME: never zero...
         std::cout << "What manual page do you want?" << std::endl;
     } else {
-        try {
-            for(auto page : var_map["page"].as<std::vector<std::string>>()) {
-                cmd_map.at(page)->Man();
+        for(auto page : pages) {
+            try {
+                    cmd_map.at(page)->Man();
+            } catch(std::out_of_range& e) {
+                std::cout << "No manual entry for \"" << page << "\"" << std::endl;
             }
-        } catch(std::out_of_range& e) {
-            std::cout << "No manual entry for \"" << argv[1] << "\"" << std::endl;
         }
     }
     return 0;

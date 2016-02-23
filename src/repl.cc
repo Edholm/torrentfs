@@ -70,15 +70,30 @@ char* ReadEvalPrint::Read() {
     return cmd;
 }
 
-void ReadEvalPrint::Eval(char* cmd) {
-    std::vector<std::string> argv;
-    boost::split(argv, cmd, boost::is_space());
-    if(argv[0].empty()) {
+void ReadEvalPrint::Eval(char *cmdline) {
+    char *argv = cmdline;
+
+    // Split the string in two at the first space
+    while(*argv) {
+        if(*argv == ' ') {
+            *argv = '\0';
+            argv++;
+            break;
+        }
+        argv++;
+    }
+    Eval(cmdline, argv);
+}
+
+void ReadEvalPrint::Eval(char* cmd, char* argv) {
+    if(*cmd == '\0') {
          return;
     }
 
+    std::vector<std::string> args_list;
+    boost::split(args_list, argv, boost::is_space());
     try {
-         cmd_map.at(argv[0])->Run(argv);
+         cmd_map.at(cmd)->Run(args_list);
     } catch(std::out_of_range& e) {
         std::cout << "torrentsh: command not found: " << cmd << std::endl;
     }
