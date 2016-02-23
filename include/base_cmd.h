@@ -9,6 +9,9 @@
 namespace po = boost::program_options;
 
 class BaseCmd : private boost::noncopyable {
+private:
+    bool opts_combined;  // Whether or not options has been combined into `all_opt_desc`
+    po::options_description all_opt_desc;
 protected:
     const std::string man, usage;
     po::options_description opt_desc;
