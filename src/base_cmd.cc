@@ -6,12 +6,13 @@
 namespace po = boost::program_options;
 
 BaseCmd::BaseCmd(const std::string &m, const std::string& u) :
+            opts_combined(false),
             all_opt_desc(po::options_description("All options")),
             man(m), usage(u),
             opt_desc(po::options_description("General options")),
             hid_opt_desc(po::options_description("Hidden")) {
     opt_desc.add_options()
-        ("help,h", "Show help message");
+        ("help,h", "Show this help message");
 }
 
 void BaseCmd::Man() {
@@ -22,6 +23,9 @@ int BaseCmd::Run(const std::vector<std::string> &argv) {
     if(!opts_combined) {
         all_opt_desc.add(opt_desc).add(hid_opt_desc);
         opts_combined = true;
+    } else {
+        // Clear any previously stored var_map
+        var_map.clear();
     }
     po::store(po::command_line_parser(argv)
             .options(all_opt_desc)
