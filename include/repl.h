@@ -6,7 +6,7 @@
 class ReadEvalPrint {
     char* Read();
     void Eval(char *);
-    std::vector<std::string> CmdToArgv(char *);
+    void Eval(const std::string&, const std::string&);
 
 public:
     ReadEvalPrint();

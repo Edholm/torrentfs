@@ -7,7 +7,7 @@ SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS :=-g -Wall -Wextra -std=c++1y
-LIB := -lreadline
+LIB := -lreadline -lboost_program_options
 INC := -I include
 
 $(TARGET): $(OBJECTS)

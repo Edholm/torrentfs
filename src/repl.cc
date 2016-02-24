@@ -35,7 +35,7 @@ char* cmd_generator(const char *txt, const int state) {
 /* Provide custom completion for readline */
 static char** auto_completion(const char* txt, int start, int end __attribute__ ((unused))) {
     // This prevents appending space to the end of the matching word
-    rl_completion_append_character = '\0';
+    //rl_completion_append_character = '\0';
     char **matches = (char**)NULL;
     if(start == 0) {
         matches = rl_completion_matches(txt, &cmd_generator);
@@ -70,15 +70,33 @@ char* ReadEvalPrint::Read() {
     return cmd;
 }
 
-void ReadEvalPrint::Eval(char* cmd) {
-    std::vector<std::string> argv;
-    boost::split(argv, cmd, boost::is_space());
-    if(argv[0].empty()) {
+void ReadEvalPrint::Eval(char *cmdline) {
+    char *argv = cmdline;
+
+    // Split the string in two at the first space
+    while(*argv) {
+        if(*argv == ' ') {
+            *argv = '\0';
+            argv++;
+            break;
+        }
+        argv++;
+    }
+    Eval(cmdline, argv);
+}
+
+void ReadEvalPrint::Eval(const std::string& cmd, const std::string& argv) {
+    if(cmd.empty()) {
          return;
     }
 
+    auto targv = boost::trim_copy(argv);
+    std::vector<std::string> args_list;
+    if(!targv.empty()) {
+        boost::split(args_list, targv, boost::is_space(), boost::token_compress_on);
+    }
     try {
-         cmd_map.at(argv[0])->Run(argv);
+         cmd_map.at(cmd)->Run(args_list);
     } catch(std::out_of_range& e) {
         std::cout << "torrentsh: command not found: " << cmd << std::endl;
     }
