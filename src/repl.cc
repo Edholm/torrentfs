@@ -85,13 +85,16 @@ void ReadEvalPrint::Eval(char *cmdline) {
     Eval(cmdline, argv);
 }
 
-void ReadEvalPrint::Eval(char* cmd, char* argv) {
-    if(*cmd == '\0') {
+void ReadEvalPrint::Eval(const std::string& cmd, const std::string& argv) {
+    if(cmd.empty()) {
          return;
     }
 
+    auto targv = boost::trim_copy(argv);
     std::vector<std::string> args_list;
-    boost::split(args_list, argv, boost::is_space());
+    if(!targv.empty()) {
+        boost::split(args_list, targv, boost::is_space(), boost::token_compress_on);
+    }
     try {
          cmd_map.at(cmd)->Run(args_list);
     } catch(std::out_of_range& e) {

@@ -6,7 +6,7 @@
 class ReadEvalPrint {
     char* Read();
     void Eval(char *);
-    void Eval(char *, char *);
+    void Eval(const std::string&, const std::string&);
 
 public:
     ReadEvalPrint();
